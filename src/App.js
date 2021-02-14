@@ -1,45 +1,30 @@
-import React, { useRef, useEffect } from "react";
-import * as THREE from "three";
+import React from 'react'
+import _bay from './assets/timothy-oldfield-luufnHoChRU-unsplash.jpg'
+import _beach from './assets/kris-guico-rsB-he-ye7w-unsplash.jpg'
+import { useState } from 'react'
+import Attribution from './components/Attribution'
+import Scene from './components/Scene'
 
-export default function Playground() {
-  const node = useRef(null)
+const images = {
+    beach: {
+        src: _beach,
+        author: '@krisguico'
+    },
+    bay: {
+        src: _bay,
+        author: 'oldfieldart'
+    }
+}
 
-  useEffect(() => {
-    // main instances
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer();
+export default function AppComponent() {
+    const [currentImage] = useState('beach')
 
-    // setup renderer
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    node.current.appendChild(renderer.domElement);
-
-    // create cube
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshStandardMaterial({ color: 0x7e31eb });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-
-    // setup some lighting
-    const light = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
-    scene.add(light);
-
-    // setup camera
-    camera.position.z = 2;
-
-    // animation loop
-    const animate = function () {
-      requestAnimationFrame(animate);
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
-      cube.rotation.z += 0.01;
-      renderer.render(scene, camera);
-    };
-    animate();
-  }, [])
-
-
-  return (
-    <div ref={node} />
-  )
+    return (
+        <>
+            <Scene imageSrc={images[currentImage].src} />
+            <div class="hud">
+                <Attribution author={images[currentImage].author} />
+            </div>
+        </>
+    )
 }

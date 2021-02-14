@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+}
+
+.hud {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+}
+
+.attribution {
+    color: white;
+    opacity: .7;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.2em;
+}
+
+.attribution a {
+    color: white;
+}
